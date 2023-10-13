@@ -6,7 +6,7 @@ The exports from the California Revealed repository are currently object level. 
 These scripts are particularly helpful post-digitization. They can be used in tandem with xml_parse_csv.py and avPriceBundles.py scripts to more easily ingest technical metadata at a batch level.
 # Procedures
 - You will need python3 to be able to run this script
-- Download the script from this github: avPriceBundles
+- Download the script from this github: expand-collapse-lines
 - Create a folder called "scripts" in your Documents folder. Move both scripts to this folder.
 - Open terminal and change your directory (cd) to the scripts folder. You can use the command below to do so.
 ```
