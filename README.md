@@ -1,5 +1,5 @@
 # What the script is
-These scripts expand and collapse our object level metadata into item level metadata and back into object level metadata. Our repository only ingests object level metadata. Temporarily expanding the rows to item level can make certain data entry tasks easier and automized.
+These scripts expand and collapse our object level metadata into item level metadata and back into object level metadata. Our repository only ingests object level metadata. Temporarily expanding the rows to item level can make certain data entry tasks easier and automized. These are meant to be in use with the AV Databaseline export. The expandLinesS4D.py script is meant for our AV Sent for Digitization export in order to create item-level records for the vendor. All of these scripts require that you use the machine-readable headers for these sheets.
 ## Why CA-R uses it
 The exports from the California Revealed repository are currently object level. Each object has the same main identifier and end up being published on a single webpage. We use delimiters (#1::, #2::, etc.) in item-specific fields to help designate item-level information so that our repository ingests this information correctly. That means each row has the potential to hold multiple items.
 ## Workflow timelines
