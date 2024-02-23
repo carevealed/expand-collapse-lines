@@ -3,12 +3,19 @@
 import csv
 import sys
 
+
+# set script parameters
+item_cols_string = "item"
+num_of_items_col = "obj_av_item_parts__ip_media_type"
+item_delimiter = "\n"
+
+
 ##  Takes in a list of strings--the header row of a csv and
 ##  returns a list of indices of the columns that contain the substring "item"
 def getItemCols(row):
     itemCols = []
     for index,heading in enumerate(row):
-        if "item" in heading:   
+        if item_cols_string in heading:   
             itemCols.append(index)
 
     return itemCols
@@ -28,12 +35,12 @@ def getMediaTypeCol(row):
 ##  itemCols is a list of indices of columns that could contain multiple columns
 ##  typeCol is the indice of the column used to see how many parts an item has
 def extractItemParts(item, itemCols, typeCol):
-    numParts = item[typeCol].split("\n")
+    numParts = item[typeCol].split(item_delimiter)
     extractedItems = []
     itemParts = []
 
     for col in itemCols:
-        itemParts.append(item[col].split("\n")) # puts all the item parts into an array, ordered the same way as itemCols
+        itemParts.append(item[col].split(item_delimiter)) # puts all the item parts into an array, ordered the same way as itemCols
 
     for index, part in enumerate(numParts):
         singleItem = item.copy()   # copies all the data from the original item
@@ -66,7 +73,7 @@ def expandLines():
             for row in reader:
 
                 # if the item has more than one part, uses the field obj_av_item_parts__ip_media_type to check if multiple parts
-                if len(row[mediaTypeCol].split("\n")) > 1:   
+                if len(row[mediaTypeCol].split(item_delimiter)) > 1:   
                     extractedItems = extractItemParts(row, itemCols, mediaTypeCol)
                     for index, item in enumerate(extractedItems):
                         item.append("%02d" % (index+1)) # make it 1-indexed instead of 0-indexed and include leading zero for 0–9
