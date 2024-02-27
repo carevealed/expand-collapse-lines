@@ -26,7 +26,7 @@ def getItemCols(row):
 def getMediaTypeCol(row):
     itemCols = []
     for index,heading in enumerate(row):
-        if "obj_av_item_parts__ip_media_type" in heading:   
+        if num_of_items_col in heading:   
             return index
 
     return 0
