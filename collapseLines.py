@@ -8,7 +8,7 @@ import sys
 def getItemCols(row):
     itemCols = []
     for index,heading in enumerate(row):
-        if "item" in heading:   
+        if "item_parts__ip" in heading:   
             itemCols.append(index)
 
     return itemCols

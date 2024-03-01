@@ -5,9 +5,9 @@ import sys
 
 
 # set script parameters
-item_cols_string = "item"
+item_cols_string = "item_parts__ip"
 num_of_items_col = "obj_av_item_parts__ip_sides_parts"
-item_delimiter = ";"
+item_delimiter = "/n"
 
 
 ##  Takes in a list of strings--the header row of a csv and

@@ -5,7 +5,7 @@ import sys
 
 
 # set script parameters
-item_cols_string = "item"
+item_cols_string = "item_parts__ip"
 num_of_items_col = "obj_av_item_parts__ip_media_type"
 item_delimiter = "\n"
 
