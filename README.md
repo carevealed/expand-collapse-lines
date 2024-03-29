@@ -1,9 +1,9 @@
 # What the script is
-These scripts expand and collapse our object level metadata into item level metadata and back into object level metadata. Our repository only ingests object level metadata. Temporarily expanding the rows to item level can make certain data entry tasks easier and automized. These are meant to be in use with the AV Databaseline export. The expandLinesS4D.py script is meant for our AV Sent for Digitization export in order to create item-level records for the vendor. All of these scripts require that you use the machine-readable headers for these sheets.
+These scripts expand and collapse our object-level metadata into item-level metadata and back into object-level metadata. Our repository only ingests object-level metadata. Temporarily expanding the rows to item level can make certain data entry tasks easier and automized. The expandLines.py and collapseLines.py scripts are meant to be in use with the AV Databaseline export. The expandLinesS4D.py script is meant for our AV Sent for Digitization export in order to create item-level records for the vendor. All of these scripts require that you use the machine-readable headers for these sheets.
 ## Why CA-R uses it
 The exports from the California Revealed repository are currently object level. Each object has the same main identifier and end up being published on a single webpage. We use delimiters (#1::, #2::, etc.) in item-specific fields to help designate item-level information so that our repository ingests this information correctly. That means each row has the potential to hold multiple items.
 ## Workflow timelines
-These scripts are particularly helpful post-digitization. They can be used in tandem with xml_parse_csv.py and avPriceBundles.py scripts to more easily ingest technical metadata at a batch level.
+The expandLinesS4D.py script is meant for preparing metadata for the vendor for every partner set in each shipment that we send to the vendor. The expandLines.py and collapseLines.py scripts are helpful post-digitization. They can be used in tandem with xml_parse_csv.py and avPriceBundles.py scripts to more easily ingest technical metadata at a batch level that we get from the vendor's digitization and inspection of the material.
 # Procedures
 - You will need python3 to be able to run this script
 - Download the script from this github: expand-collapse-lines
@@ -30,4 +30,6 @@ Example:
 ```
 python3 avPriceBundles.py ./Desktop/capdhs_2021-2022_expanded.csv ./Desktop/capdhs_2021-22_collapse.csv 
 ```
-- When you press enter, a new csv file will be created following the pathway you determined in the terminal. 
+- When you press enter, a new csv file will be created following the pathway you determined in the terminal.
+## Troubleshooting
+Note that the delimiters are technically the line break (or "/n" in the script). If line breaks are used other than to indicate the end of an entry for each item part, it will not work with the script. In particular, keep an eye out for this in the Item/Container Annotation fields. Every entry for item parts should be on a single line.
