@@ -7,7 +7,7 @@ import sys
 # set script parameters
 item_cols_string = "item_parts__ip"
 num_of_items_col = "obj_av_item_parts__ip_sides_parts"
-item_delimiter = "/n"
+item_delimiter = "\n"
 
 
 ##  Takes in a list of strings--the header row of a csv and
@@ -21,7 +21,7 @@ def getItemCols(row):
     return itemCols
 
 ##  Takes in a list of strings--the header row of a csv and
-##  Returns the index of the "obj_av_item_parts__ip_media_type" col.
+##  Returns the index of the "num_of_items_col" col.
 ##  If no such column exists, returns 0.
 def getMediaTypeCol(row):
     itemCols = []
@@ -50,7 +50,7 @@ def extractItemParts(item, itemCols, typeCol):
             if parts == ['']:   # no data for this column, append null string
                 singleItem[col] = ''
             else:
-                singleItem[col] = itemParts[colIndex][index].strip()  # reassigns columns with multiple values to a single value
+                singleItem[col] = itemParts[colIndex][index][5:].strip()  # reassigns columns with multiple values to a single value, strips leading '#X:: '
 
         extractedItems.append(singleItem)
 
@@ -64,18 +64,19 @@ def expandLines():
     with open(sys.argv[1]) as csvfile:      # open the csv supplied by user
             reader = csv.reader(csvfile)
             headerRow = next(reader)
-            itemCols = getItemCols(headerRow)
+            itemCols = getItemCols(headerRow)            
             mediaTypeCol = getMediaTypeCol(headerRow)
-            
+                        
             allItems = []
             allItems.append(headerRow)
 
             for row in reader:
 
                 # if the item has more than one part, uses the field obj_av_item_parts__ip_media_type to check if multiple parts
+                
                 if len(row[mediaTypeCol].split(item_delimiter)) > 1:   
                     extractedItems = extractItemParts(row, itemCols, mediaTypeCol)
-                    for index, item in enumerate(extractedItems):
+                    for index, item in enumerate(extractedItems):                        
                         item.append("%02d" % (index+1)) # make it 1-indexed instead of 0-indexed and include leading zero for 0–9
                         allItems.append(item)
                 else:
@@ -88,3 +89,4 @@ def expandLines():
             csvWriter.writerow(item)
 
 expandLines()
+
